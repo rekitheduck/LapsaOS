@@ -9,21 +9,15 @@ mov dl, 0x00 ; cursor column
 int 0x10;
 
 ; clear screen from top left
-mov al, 0x30 ; clear value
-mov cl, 0x00 ; column
-mov ch, 0x00 ; row
+mov al, 0x00 ; clear value
+mov cx, 0x00 ; count
 ; assume 80x25 screen
-.row_start:
-    inc ch
-    test ch, 0x19 ; 25
-    jz .clear_end
-    .column_start:
-        inc cl
-        call printCharacter
-        test cl, 0x50 ; 80
-            jz .row_start
-        jmp .column_start
-.clear_end:
+.clear_loop:
+    call printCharacter
+    inc cx
+    cmp cx, 0x7D0 ; 2000 (80x25)
+    jne .clear_loop
+
 ; set cursor back to top left
 mov ah, 0x02
 mov bh, 0x00 ; page number
