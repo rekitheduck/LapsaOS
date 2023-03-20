@@ -1,3 +1,3 @@
-# quackOS operating system
+# Lapsa operating system
 
-`// TODO: Write this`
+Attempt to write an operating system that would work on a homebrew 8086-based PC
